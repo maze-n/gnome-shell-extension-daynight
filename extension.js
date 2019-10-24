@@ -32,6 +32,9 @@ const Me = imports.misc.extensionUtils.getCurrentExtension();
 
 let path = GLib.build_filenamev([Me.path + "/src/",  'mode.txt']);
 let file = Gio.File.new_for_path(path);
+let [success, contents] = file.load_contents(null);
+
+let icon_name = (contents == 1) ? "weather-clear-symbolic" : "weather-clear-night-symbolic";
 
 const toggleButton = new Lang.Class({
     Name: "toggleButton",
@@ -58,7 +61,7 @@ function enable() {
     let panelToggleButton = new toggleButton();
     Main.panel.addToStatusArea("should-be-a-unique-string", panelToggleButton);
     Main.panel.statusArea["should-be-a-unique-string"].actor.visible = false;
-    Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = "video-display-symbolic";
+    Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = icon_name;
     Main.panel.statusArea["should-be-a-unique-string"].actor.visible = true;
 }
 
@@ -76,12 +79,14 @@ function toggler() {
         if (GLib.mkdir_with_parents(file.get_parent().get_path(), PERMISSIONS_MODE) === 0) {
             let [success, tag] = file.replace_contents("1", null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
         }
+        Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = "weather-clear-symbolic";
     }
     else {
         settheme("Adwaita-dark");
         if (GLib.mkdir_with_parents(file.get_parent().get_path(), PERMISSIONS_MODE) === 0) {
             let [success, tag] = file.replace_contents("0", null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
         }
+        Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = "weather-clear-night-symbolic";
     }
 }
 
