@@ -16,8 +16,7 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-/* exported init */
-'use strict';
+ 'use strict';
 
 const ByteArray = imports.byteArray;
 const Lang = imports.lang;
@@ -30,11 +29,17 @@ const PanelMenu = imports.ui.panelMenu;
 const PERMISSIONS_MODE = 0o744;
 const Me = imports.misc.extensionUtils.getCurrentExtension();
 
+const GTKSCHEMA_KEY = "org.gnome.desktop.interface";
+const SHELLSCHEMA_KEY = "org.gnome.shell.extensions.user-theme";
+
 let path = GLib.build_filenamev([Me.path + "/src/",  'mode.txt']);
 let file = Gio.File.new_for_path(path);
 let [success, contents] = file.load_contents(null);
 
 var icon_name = (contents == 1) ? "weather-clear-symbolic" : "weather-clear-night-symbolic";
+
+let gtk_settings = new Gio.Settings({ schema: GTKSCHEMA_KEY });
+let shell_settings = new Gio.Settings({ schema: SHELLSCHEMA_KEY });
 
 const toggleButton = new Lang.Class({
     Name: "toggleButton",
@@ -52,6 +57,18 @@ const toggleButton = new Lang.Class({
     }
 });
 
+function isDark(themeName) {
+    return themeName.indexOf('-dark') !== -1;
+}
+  
+function toLight(themeName) {
+  return themeName.replace("-dark", "");
+}
+
+function toDark(themeName) {
+  return isDark(themeName) ? themeName : themeName + "-dark";
+}
+
 function enable() {
     let panelToggleButton = new toggleButton();
     Main.panel.addToStatusArea("should-be-a-unique-string", panelToggleButton);
@@ -68,16 +85,22 @@ function init() {
 }
 
 function toggler() {
+    let gtk_lightTheme = toLight(gtk_settings.get_string("gtk-theme"));
+    let gtk_darkTheme = toDark(gtk_settings.get_string("gtk-theme"));
+    let shell_lightTheme = toLight(shell_settings.get_string("name"));
+    let shell_darkTheme = toDark(shell_settings.get_string("name"));
+
     let [success, contents] = file.load_contents(null);
+    
     if (contents == 0) {
-        settheme("Adwaita");
+        settheme(gtk_lightTheme, shell_lightTheme);
         if (GLib.mkdir_with_parents(file.get_parent().get_path(), PERMISSIONS_MODE) === 0) {
             let [success, tag] = file.replace_contents("1", null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
         }
         Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = "weather-clear-symbolic";
     }
     else {
-        settheme("Adwaita-dark");
+        settheme(gtk_darkTheme, shell_darkTheme);
         if (GLib.mkdir_with_parents(file.get_parent().get_path(), PERMISSIONS_MODE) === 0) {
             let [success, tag] = file.replace_contents("0", null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
         }
@@ -85,8 +108,9 @@ function toggler() {
     }
 }
 
-function settheme(theme) {
-    syscommand("gsettings set org.gnome.desktop.interface gtk-theme " + theme);
+function settheme(gtk_theme, shell_theme) {
+    syscommand("gsettings set org.gnome.desktop.interface gtk-theme " + gtk_theme);
+    syscommand("gsettings set org.gnome.shell.extensions.user-theme name " + shell_theme);
 }
 
 function syscommand(cmd) {
