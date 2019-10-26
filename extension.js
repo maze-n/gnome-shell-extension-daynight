@@ -43,7 +43,6 @@ const toggleButton = new Lang.Class({
     _init: function () {
     this.parent(null, "toggleButton");
         
-    // Icons
     this.icon = new St.Icon({
         icon_name: "togglerIcon",
         style_class: "system-status-icon"
