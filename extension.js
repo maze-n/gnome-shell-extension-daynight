@@ -34,7 +34,7 @@ let path = GLib.build_filenamev([Me.path + "/src/",  'mode.txt']);
 let file = Gio.File.new_for_path(path);
 let [success, contents] = file.load_contents(null);
 
-let icon_name = (contents == 1) ? "weather-clear-symbolic" : "weather-clear-night-symbolic";
+var icon_name = (contents == 1) ? "weather-clear-symbolic" : "weather-clear-night-symbolic";
 
 const toggleButton = new Lang.Class({
     Name: "toggleButton",
@@ -49,11 +49,7 @@ const toggleButton = new Lang.Class({
         style_class: "system-status-icon"
     });
     this.actor.add_actor(this.icon);
-    this.actor.connect('button-press-event', toggler);
-        
-    
-    /*this.menuItem = new PopupMenu.PopupMenuItem("bruh", {});
-    this.menu.addMenuItem(this.menuItem);*/
+    this.actor.connect('button-press-event', toggler);    
     }
 });
 
