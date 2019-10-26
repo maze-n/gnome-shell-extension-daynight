@@ -52,7 +52,7 @@ const toggleButton = new Lang.Class({
     this.actor.connect('button-press-event', toggler);
         
     
-    /*this.menuItem = new PopupMenu.PopupMenuItem("Salah Time", {});
+    /*this.menuItem = new PopupMenu.PopupMenuItem("bruh", {});
     this.menu.addMenuItem(this.menuItem);*/
     }
 });
