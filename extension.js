@@ -36,10 +36,20 @@ let path = GLib.build_filenamev([Me.path + "/src/",  'mode.txt']);
 let file = Gio.File.new_for_path(path);
 let [success, contents] = file.load_contents(null);
 
-var icon_name = (contents == 1) ? "weather-clear-symbolic" : "weather-clear-night-symbolic";
-
 let gtk_settings = new Gio.Settings({ schema: GTKSCHEMA_KEY });
 let shell_settings = new Gio.Settings({ schema: SHELLSCHEMA_KEY });
+
+let cur_theme = gtk_settings.get_string("gtk-theme");
+let gtk_lightTheme = toLight(gtk_settings.get_string("gtk-theme"));
+let gtk_darkTheme = toDark(gtk_settings.get_string("gtk-theme"));
+let shell_lightTheme = toLight(shell_settings.get_string("name"));
+let shell_darkTheme = toDark(shell_settings.get_string("name"));
+
+if (cur_theme == gtk_lightTheme) {
+    var icon_name = "weather-clear-symbolic";
+} else {
+    var icon_name = "weather-clear-night-symbolic";
+}
 
 const toggleButton = new Lang.Class({
     Name: "toggleButton",
@@ -71,24 +81,20 @@ function toDark(themeName) {
 
 function enable() {
     let panelToggleButton = new toggleButton();
-    Main.panel.addToStatusArea("should-be-a-unique-string", panelToggleButton);
-    Main.panel.statusArea["should-be-a-unique-string"].actor.visible = false;
-    Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = icon_name;
-    Main.panel.statusArea["should-be-a-unique-string"].actor.visible = true;
+    Main.panel.addToStatusArea("daynight@maze-n.github.com", panelToggleButton);
+    Main.panel.statusArea["daynight@maze-n.github.com"].actor.visible = false;
+    Main.panel.statusArea["daynight@maze-n.github.com"].icon.icon_name = icon_name;
+    Main.panel.statusArea["daynight@maze-n.github.com"].actor.visible = true;
 }
 
 function disable() {
-    Main.panel.statusArea["should-be-a-unique-string"].destroy();
+    Main.panel.statusArea["daynight@maze-n.github.com"].destroy();
 }
 
 function init() {
 }
 
 function toggler() {
-    let gtk_lightTheme = toLight(gtk_settings.get_string("gtk-theme"));
-    let gtk_darkTheme = toDark(gtk_settings.get_string("gtk-theme"));
-    let shell_lightTheme = toLight(shell_settings.get_string("name"));
-    let shell_darkTheme = toDark(shell_settings.get_string("name"));
 
     let [success, contents] = file.load_contents(null);
     
@@ -97,14 +103,13 @@ function toggler() {
         if (GLib.mkdir_with_parents(file.get_parent().get_path(), PERMISSIONS_MODE) === 0) {
             let [success, tag] = file.replace_contents("1", null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
         }
-        Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = "weather-clear-symbolic";
-    }
-    else {
+        Main.panel.statusArea["daynight@maze-n.github.com"].icon.icon_name = "weather-clear-symbolic";
+    } else {
         settheme(gtk_darkTheme, shell_darkTheme);
         if (GLib.mkdir_with_parents(file.get_parent().get_path(), PERMISSIONS_MODE) === 0) {
             let [success, tag] = file.replace_contents("0", null, false, Gio.FileCreateFlags.REPLACE_DESTINATION, null);
         }
-        Main.panel.statusArea["should-be-a-unique-string"].icon.icon_name = "weather-clear-night-symbolic";
+        Main.panel.statusArea["daynight@maze-n.github.com"].icon.icon_name = "weather-clear-night-symbolic";
     }
 }
 
