@@ -97,6 +97,11 @@ function init() {
 function toggler() {
 
     let [success, contents] = file.load_contents(null);
+
+    gtk_lightTheme = toLight(gtk_settings.get_string("gtk-theme"));
+    gtk_darkTheme = toDark(gtk_settings.get_string("gtk-theme"));
+    shell_lightTheme = toLight(shell_settings.get_string("name"));
+    shell_darkTheme = toDark(shell_settings.get_string("name"));
     
     if (contents == 0) {
         settheme(gtk_lightTheme, shell_lightTheme);
