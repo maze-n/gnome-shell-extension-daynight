@@ -1,6 +1,7 @@
 {
   "name": "DayNight",
   "description": "A simple button extension to toggle between light/dark shell and gtk theme",
+  "url": "https://github.com/maze-n/gnome-shell-extension-daynight",
   "uuid": "daynight@maze-n.github.com",
   "shell-version": [
     "3.34",
