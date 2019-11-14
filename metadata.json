@@ -3,7 +3,8 @@
   "description": "A simple button extension to toggle between light/dark shell and gtk theme",
   "uuid": "daynight@maze-n.github.com",
   "shell-version": [
-    "3.34"
+    "3.34",
+    "3.28.2"
   ],
   "version": "3.1"
 }
