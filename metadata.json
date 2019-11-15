@@ -4,8 +4,6 @@
   "url": "https://github.com/maze-n/gnome-shell-extension-daynight",
   "uuid": "daynight@maze-n.github.com",
   "shell-version": [
-    "3.34",
-    "3.28.2"
-  ],
-  "version": "3.1"
+    "3.34"
+  ]
 }
