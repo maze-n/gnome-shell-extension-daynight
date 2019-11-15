@@ -1,4 +1,5 @@
 // Adapted from caffeine@patapon.info
+
 /* prefs.js
  *
  * This program is free software: you can redistribute it and/or modify
