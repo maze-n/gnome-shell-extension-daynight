@@ -1,6 +1,6 @@
 {
   "name": "DayNight",
-  "description": "A simple button extension to toggle between light/dark shell and gtk theme",
+  "description": "A simple button extension to toggle between light/dark shell and gtk theme.\n\nThis extension currently assumes that your current theme's dark version is already installed and the dark theme's name is "-dark" appended to the original theme name (for example if the light theme is named 'Pop', the dark themes name is taken as 'Pop-dark').The theme is changed to Adwaita by gnome itself in case the dark theme is not found.",
   "url": "https://github.com/maze-n/gnome-shell-extension-daynight",
   "uuid": "daynight@maze-n.github.com",
   "shell-version": [
