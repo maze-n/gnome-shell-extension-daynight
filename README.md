@@ -6,7 +6,7 @@
 
  - The extension requires 'user themes' extension to change shell themes.
 
-##Get:
+Get:
  - From https://extensions.gnome.org/extension/2302/daynight/
 
  Or
