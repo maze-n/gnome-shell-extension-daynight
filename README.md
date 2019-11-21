@@ -1,10 +1,12 @@
 <h2 align="center">daynight</h2>
-<p align="center"><img src="https://raw.githubusercontent.com/maze-n/gnome-shell-extension-daynight/master/src/logo.png" width="130"></p>
+<p align="center" size=44px><img src="https://raw.githubusercontent.com/maze-n/gnome-shell-extension-daynight/master/src/logo.png" width="130"></p>
 
 <p align="center">A simple gnome-extension button on the GNOME's top panel to toggle between light / dark themes.</p>
+
+
  - The extension requires 'user themes' extension to change shell themes.
 
-Get:
+##Get:
  - From https://extensions.gnome.org/extension/2302/daynight/
 
  Or
