@@ -1,4 +1,4 @@
-<h2 align="center">gnome-shell-extension-daynight</h2>
+<h2 align="center">daynight</h2>
 <p align="center"><img src="https://raw.githubusercontent.com/maze-n/gnome-shell-extension-daynight/master/src/logo.png" width="130"></p>
 
 <p align="center">A simple gnome-extension button on the GNOME's top panel to toggle between light / dark themes.</p>
