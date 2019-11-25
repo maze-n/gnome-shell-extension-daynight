@@ -3,7 +3,7 @@
 
 <p align="center">A simple gnome-extension button on the GNOME's top panel to toggle between light / dark themes.</p>
 
-<p align="center" size=144px><img src="https://raw.githubusercontent.com/maze-n/gnome-shell-extension-daynight/master/src/screenshot.gif" width="130"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/maze-n/gnome-shell-extension-daynight/master/src/screenshot.gif" width="640"></p>
 
 
  - The extension requires 'user themes' extension to change shell themes.
